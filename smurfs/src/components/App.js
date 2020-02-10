@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import SmurfList from './SmurfList';
+import SmurfForm from './SmurfForm';
 import SmurfContext from '../contexts/SmurfContext';
 
 function App() {
@@ -32,9 +33,8 @@ function App() {
       <div className="App">
         <SmurfContext.Provider value={{ addSmurf, setAddSmurf }}>
           <h1>Smurf Village Membership Registration</h1>
-        
+          <SmurfForm />
           <SmurfList />
-
         </SmurfContext.Provider>
       </div>
     );
