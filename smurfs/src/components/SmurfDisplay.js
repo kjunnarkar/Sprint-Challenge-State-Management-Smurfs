@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import SmurfContext from '../contexts/SmurfContext';
+import Axios from 'axios';
 
 // styled-components
 const Card = styled.div `
@@ -23,10 +25,23 @@ const Info = styled.ul `
 const ListItems = styled.li `
   color: white;
 `;
+
+const DeleteButton = styled.button `
+    margin-left: 20%;
+`
 // end styled-components
 
 const SmurfDisplay = ({ person }) => {
     
+    const { addSmurf, setAddSmurf } = useContext(SmurfContext);
+
+    const handleDelete = id => {
+        Axios.delete(`http://localhost:3333/smurfs/${id}`)
+        .then(res => {
+            setAddSmurf(addSmurf.filter(member => member.id !== id))
+        })
+    }
+
     return (
         <Card>
             <Info>
@@ -34,6 +49,7 @@ const SmurfDisplay = ({ person }) => {
                 <ListItems>Age: {person.age}</ListItems>
                 <ListItems>Height: {person.height}</ListItems>
             </Info>
+            <DeleteButton onClick={() => handleDelete(person.id)}>Remove Member</DeleteButton>
         </Card>
     )
 }
